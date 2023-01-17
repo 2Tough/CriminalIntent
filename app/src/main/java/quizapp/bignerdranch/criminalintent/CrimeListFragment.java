@@ -5,11 +5,14 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -39,14 +42,30 @@ public class CrimeListFragment extends Fragment {
     }
 
     private class CrimeHolder extends RecyclerView.ViewHolder {
+
+        private Crime mCrime;
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+
         public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_crime, parent, false));
+
+            mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
+            mDateTextView = (TextView) itemView.findViewById(R.id.crime_title);
+
+        }
+
+        public void bind(Crime crime) {
+            mCrime = crime;
+            mTitleTextView.setText(mCrime.getTitle());
+            mDateTextView.setText(mCrime.getDate().toString());
         }
     }
 
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
 
         private List<Crime> mCrimes;
+
 
         public CrimeAdapter(List<Crime> crimes) {
             mCrimes = crimes;
@@ -61,13 +80,20 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(CrimeHolder holder, int position) {
-
+            Crime crime = mCrimes.get(position);
+            holder.bind(crime);
         }
 
         @Override
         public int getItemCount() {
             return mCrimes.size();
         }
+
+
     }
 
+
+
 }
+
+
