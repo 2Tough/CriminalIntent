@@ -36,6 +36,7 @@ public class CrimeListFragment extends Fragment {
     private void updateUI() {
         CrimeLab crimeLab = CrimeLab.get(getActivity());
         List<Crime> crimes = crimeLab.getCrimes();
+
         mAdapter = new CrimeAdapter(crimes);
         mCrimeRecyclerView.setAdapter(mAdapter);
 
@@ -43,15 +44,15 @@ public class CrimeListFragment extends Fragment {
 
     private class CrimeHolder extends RecyclerView.ViewHolder {
 
-        private Crime mCrime;
         private TextView mTitleTextView;
         private TextView mDateTextView;
+        private Crime mCrime;
 
         public CrimeHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_crime, parent, false));
 
             mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
-            mDateTextView = (TextView) itemView.findViewById(R.id.crime_title);
+            mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
 
         }
 
@@ -66,12 +67,10 @@ public class CrimeListFragment extends Fragment {
 
         private List<Crime> mCrimes;
 
-
         public CrimeAdapter(List<Crime> crimes) {
             mCrimes = crimes;
         }
 
-        @NonNull
         @Override
         public CrimeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
