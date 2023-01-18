@@ -67,14 +67,16 @@ public class CrimeListFragment extends Fragment {
             mTitleTextView.setText(mCrime.getTitle());
             mDateTextView.setText(mCrime.getDate().toString());
         }
-        }
 
         @Override
         public void onClick(View view) {
             Toast.makeText(getActivity(),
                     mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
 
+
+        }
     }
+
 
     private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
 
