@@ -5,6 +5,7 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,16 @@ public class CrimeListFragment extends Fragment {
 
     }
 
-    private class CrimeHolder extends RecyclerView.ViewHolder
+    private class MyCrimeHolder extends RecyclerView.ViewHolder {
+
+        public MyCrimeHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+
+        public void bind(Crime crime) {}
+    }
+
+    private class CrimeHolder extends MyCrimeHolder
             implements View.OnClickListener {
 
         private TextView mTitleTextView;
@@ -77,8 +87,48 @@ public class CrimeListFragment extends Fragment {
         }
     }
 
+    private class CrimePoliceHolder extends MyCrimeHolder
+            implements View.OnClickListener {
 
-    private class CrimeAdapter extends RecyclerView.Adapter<CrimeHolder> {
+        private TextView mTitleTextView;
+        private TextView mDateTextView;
+        private Button mContactPoliceButton;
+        private Crime mCrime;
+
+        public CrimePoliceHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.list_item_crime_police, parent, false));
+            itemView.setOnClickListener(this);
+
+
+            mTitleTextView = (TextView) itemView.findViewById(R.id.crime_title);
+            mDateTextView = (TextView) itemView.findViewById(R.id.crime_date);
+            mContactPoliceButton = itemView.findViewById(R.id.contact_police_button);
+        }
+
+
+        public void bind(Crime crime) {
+            mCrime = crime;
+            mTitleTextView.setText(mCrime.getTitle());
+            mDateTextView.setText(mCrime.getDate().toString());
+            mContactPoliceButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(getActivity(), "Call Police1", Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+        @Override
+        public void onClick(View view) {
+            Toast.makeText(getActivity(),
+                    mCrime.getTitle() + " clicked!", Toast.LENGTH_SHORT).show();
+
+
+        }
+    }
+
+
+    private class CrimeAdapter extends RecyclerView.Adapter<MyCrimeHolder> {
 
         private List<Crime> mCrimes;
 
@@ -87,16 +137,26 @@ public class CrimeListFragment extends Fragment {
         }
 
         @Override
-        public CrimeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public MyCrimeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            if (viewType == 1) {
+                return new CrimePoliceHolder(layoutInflater, parent);
+            }
             return new CrimeHolder(layoutInflater, parent);
         }
 
         @Override
-        public void onBindViewHolder(CrimeHolder holder, int position) {
+        public void onBindViewHolder(MyCrimeHolder holder, int position) {
             Crime crime = mCrimes.get(position);
             holder.bind(crime);
+        }
 
+        @Override
+        public int getItemViewType(int position) {
+            if(mCrimes.get(position).isRequiresPolice()) {
+                return 1;
+            }
+            return 0;
         }
 
         @Override
