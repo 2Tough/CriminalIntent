@@ -15,11 +15,15 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Date;
 import java.util.List;
 
 public class CrimeListFragment extends Fragment {
     private RecyclerView mCrimeRecyclerView;
     private CrimeAdapter mAdapter;
+    android.text.format.DateFormat df = new android.text.format.DateFormat();
+    CharSequence newDateFormat = df.format("EEEE, dd MMM yyyy HH:mm:ss", new Date());
+
 
     @Override
     public View onCreateView(LayoutInflater inflater,ViewGroup container,
@@ -74,7 +78,10 @@ public class CrimeListFragment extends Fragment {
         public void bind(Crime crime) {
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(mCrime.getDate().toString());
+
+            // Challenge 10: change date format.
+            mDateTextView.setText(newDateFormat.toString());
+
             mSolvedImageView.setVisibility(crime.isSolved() ? View.VISIBLE : View.GONE);
 
         }
@@ -110,7 +117,12 @@ public class CrimeListFragment extends Fragment {
         public void bind(Crime crime) {
             mCrime = crime;
             mTitleTextView.setText(mCrime.getTitle());
-            mDateTextView.setText(mCrime.getDate().toString());
+
+
+
+           //Challenge 10: changing date format
+           mDateTextView.setText(newDateFormat.toString());
+
             mContactPoliceButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
