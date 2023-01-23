@@ -9,19 +9,24 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/crime_title_label" />
+        android:text="@string/crime_title_label"
+        android:layout_margin="3dp"
+
+        />
 
     <EditText
         android:id="@+id/crime_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/crime_title_hint"/>
+        android:hint="@string/crime_title_hint"
+        android:layout_margin="3dp"/>
 
     <TextView
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/crime_details_label" />
+        android:text="@string/crime_details_label"
+        android:layout_margin="3dp"/>
 
     <Button
         android:id="@+id/crime_date"
