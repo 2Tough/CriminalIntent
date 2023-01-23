@@ -3,6 +3,7 @@ package quizapp.bignerdranch.criminalintent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +15,14 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.List;
 import java.util.UUID;
 
-public class CrimePagerActivity extends AppCompatActivity {
+public class CrimePagerActivity extends AppCompatActivity
+{
+
+    //Challenge #2 from chapter 11 ToDo: Implement Jump to last and start buttons.
+//    private Button mJumpToLastButton;
+//    private Button mJumpToStartButton;
+
+
     private static final String EXTRA_CRIME_ID =
             "quizapp.bignerdranch.criminalintent.crime_id";
 
